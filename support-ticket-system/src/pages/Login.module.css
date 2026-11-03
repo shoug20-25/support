@@ -1,0 +1,152 @@
+.loginPage {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  background-color: #dce5eb;
+}
+
+.loginCard {
+  width: 100%;
+  max-width: 865px;
+  min-height: 690px;
+  padding: 10px 60px 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  border-radius: 15px;
+}
+
+.logo {
+  width: 240px;
+  height: 210px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.loginForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 38px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #153e57;
+  font-size: 27px;
+  font-weight: 700;
+}
+
+.input {
+  width: 100%;
+  height: 62px;
+  padding: 0 20px;
+  border: none;
+  outline: none;
+  border-radius: 22px;
+  background-color: #aebdc6;
+  color: #173c52;
+  font-size: 20px;
+  transition: box-shadow 0.2s ease;
+}
+
+.input:focus {
+  box-shadow: 0 0 0 3px rgba(18, 97, 138, 0.2);
+}
+
+.passwordWrapper {
+  position: relative;
+}
+
+.passwordWrapper .input {
+  padding-left: 55px;
+}
+
+.passwordToggle {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: #173c52;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.submitButton {
+  width: 100%;
+  min-height: 67px;
+  margin-top: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  border: none;
+  border-radius: 22px;
+  background-color: #aebdc6;
+  color: #153e57;
+  font-size: 31px;
+  font-weight: 700;
+  transition: background-color 0.2s ease;
+}
+
+.submitButton:hover {
+  background-color: #96b5c6;
+}
+
+.arrow {
+  font-size: 35px;
+  font-weight: 400;
+}
+
+.errorMessage {
+  margin: -20px 0;
+  color: #dc3545;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .loginCard {
+    min-height: auto;
+    padding: 35px 22px;
+  }
+
+  .logo {
+  width: 150px;
+  height: 140px;
+  margin-bottom: 15px;
+}
+
+  .label {
+    font-size: 21px;
+  }
+
+  .input {
+    height: 55px;
+  }
+
+  .submitButton {
+    font-size: 24px;
+  }
+}

@@ -1,0 +1,166 @@
+.subscriptions {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+  color: #153e57;
+}
+
+.pageTitle {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+/* بطاقات الملخص */
+
+.summaryCards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.summaryCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+
+  background-color: #ffffff;
+  border: 1px solid #dce6ec;
+  border-radius: 12px;
+
+  box-shadow: 0 2px 8px rgba(21, 62, 87, 0.04);
+}
+
+.summaryCard p {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.summaryCard h2 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.summaryIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 58px;
+  height: 58px;
+
+  border-radius: 50%;
+  font-size: 22px;
+}
+
+.activeIcon {
+  background-color: #e1f3e7;
+  color: #36945b;
+}
+
+.expiredIcon {
+  background-color: #f8e4e2;
+  color: #c65a55;
+}
+
+/* الجدول */
+
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+
+  background-color: #ffffff;
+  border: 1px solid #dce6ec;
+  border-radius: 12px;
+}
+
+.subscriptionTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.subscriptionTable th {
+  padding: 20px 18px;
+
+  color: #153e57;
+  font-size: 17px;
+  font-weight: 700;
+
+  border-bottom: 1px solid #dce6ec;
+}
+
+.subscriptionTable td {
+  padding: 22px 18px;
+
+  color: #536b79;
+  font-size: 16px;
+
+  border-bottom: 1px solid #edf1f4;
+}
+
+.subscriptionTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* اسم النظام */
+
+.systemName {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  color: #153e57;
+  font-weight: 600;
+}
+
+.systemIcon {
+  font-size: 20px;
+  color: #6c99b2;
+}
+
+/* حالة الاشتراك */
+
+.activeBadge,
+.expiredBadge {
+  display: inline-block;
+
+  padding: 6px 14px;
+  border-radius: 7px;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.activeBadge {
+  background-color: #dff1e3;
+  color: #398052;
+}
+
+.expiredBadge {
+  background-color: #f8e1df;
+  color: #b94e49;
+}
+
+/* responsive */
+
+@media (max-width: 768px) {
+  .summaryCards {
+    grid-template-columns: 1fr;
+  }
+
+  .summaryCard {
+    padding: 16px;
+  }
+
+  .subscriptionTable th,
+  .subscriptionTable td {
+    padding: 16px 12px;
+    font-size: 14px;
+  }
+}

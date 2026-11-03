@@ -1,0 +1,211 @@
+.sidebar {
+  width: 260px;
+  min-height: 100vh;
+  padding: 25px 15px;
+  background-color: #12618a;
+  color: #ffffff;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  padding: 15px 10px 35px;
+  text-align: center;
+}
+
+.logo h2 {
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.navItem {
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #ffffff;
+  font-size: 18px;
+  text-decoration: none;
+  text-align: right;
+  cursor: pointer;
+}
+
+.navItem:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.chevron {
+  margin-right: auto;
+  font-size: 13px;
+}
+
+.subMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px 12px;
+  margin-top: -8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+}
+
+.subMenuItem {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 7px 10px;
+  color: #ffffff;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.subMenuItem:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-radius: 5px;
+}
+
+.active {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.sidebarLogo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 15px 30px;
+}
+
+.sidebarLogo img {
+  width: 150px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* تسجيل الخروج */
+.logoutButton {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+
+  width: calc(100% - 30px);
+  margin: auto 15px 20px;
+  padding: 13px 16px;
+
+  border: 1px solid rgba(255, 80, 80, 0.15);
+  border-radius: 8px;
+
+  background-color: rgba(247, 66, 66, 0.9);
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: right;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.logoutButton svg {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.logoutButton:hover {
+  background-color: rgba(255, 70, 70, 1);
+}
+
+/* خلفية نافذة التأكيد */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(3px);
+
+  z-index: 9999;
+}
+
+/* نافذة التأكيد */
+.logoutModal {
+  width: 350px;
+  max-width: calc(100% - 40px);
+  padding: 28px;
+
+  background: #ffffff;
+  border-radius: 14px;
+
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+
+  text-align: center;
+  color: #153e57;
+}
+
+.logoutModal h3 {
+  margin: 0 0 12px;
+  font-size: 20px;
+}
+
+.logoutModal p {
+  margin-bottom: 24px;
+  color: #687b88;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.confirmLogout,
+.cancelLogout {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.confirmLogout {
+  background: #f44343;
+  color: white;
+}
+
+.confirmLogout:hover {
+  background: #d93636;
+}
+
+.cancelLogout {
+  background: #edf2f5;
+  color: #153e57;
+}
+
+.cancelLogout:hover {
+  background: #dce6ec;
+}

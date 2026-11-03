@@ -1,0 +1,210 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 100%;
+  color: #153e57;
+}
+
+.pageTitle {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.profileForm {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  padding: 30px;
+
+  background-color: #ffffff;
+  border: 1px solid #dce6ec;
+  border-radius: 14px;
+
+  box-shadow: 0 2px 8px rgba(21, 62, 87, 0.04);
+}
+
+.profileFields {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.formGroup {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  align-items: center;
+  gap: 20px;
+}
+
+.formGroup label {
+  color: #153e57;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.formGroup input {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+
+  padding: 13px 15px;
+
+  border: 1px solid #aebdc5;
+  border-radius: 10px;
+
+  background-color: #f8fafc;
+  color: #153e57;
+
+  font-family: inherit;
+  font-size: 15px;
+
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.formGroup input:focus {
+  border-color: #168bd0;
+  box-shadow: 0 0 0 3px rgba(22, 139, 208, 0.1);
+}
+
+.formGroup input::placeholder {
+  color: #8a9aa4;
+}
+
+/* قسم كلمات المرور */
+
+.passwordSection {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+
+  padding-top: 24px;
+  border-top: 1px solid #dce6ec;
+}
+
+.passwordInputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.passwordInputWrapper input {
+  padding-left: 48px;
+}
+
+.passwordToggle {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  background: transparent;
+
+  color: #647985;
+  font-size: 18px;
+
+  cursor: pointer;
+}
+
+.passwordToggle:hover {
+  color: #12618a;
+}
+
+/* رسائل التحقق */
+
+.errorMessage {
+  margin: 0;
+  color: #c0392b;
+  font-size: 14px;
+}
+
+.successMessage {
+  margin: 0;
+  color: #27834b;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* زر الحفظ */
+
+.formActions {
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 8px;
+}
+
+.saveButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-width: 110px;
+  padding: 12px 22px;
+
+  border: none;
+  border-radius: 8px;
+
+  background-color: #dff1e3;
+  color: #398052;
+
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.saveButton:hover {
+  background-color: #c8e7d0;
+}
+
+/* الشاشات الصغيرة */
+
+@media (max-width: 768px) {
+  .profileForm {
+    padding: 20px;
+  }
+
+  .formGroup {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .formGroup label {
+    font-size: 14px;
+  }
+
+  .formActions {
+    justify-content: stretch;
+  }
+
+  .saveButton {
+    width: 100%;
+  }
+}
+.formGroup input:user-invalid {
+  border-color: #d9534f;
+  background-color: #fff5f5;
+  box-shadow: 0 0 0 2px rgba(217, 83, 79, 0.1);
+}
+
+/* يظهر الأخضر إذا كان الإدخال صحيحًا */
+.formGroup input:user-valid {
+  border-color: #2ca568;
+  background-color: #f4fff7;
+}
+
+/* لون التركيز عند وجود خطأ */
+.formGroup input:user-invalid:focus {
+  border-color: #d9534f;
+  box-shadow: 0 0 0 3px rgba(217, 83, 79, 0.12);
+}

@@ -1,0 +1,274 @@
+.createTicket {
+width: 100%;
+display: flex;
+flex-direction: column;
+gap: 22px;
+color: #153e57;
+}
+
+.pageHeader h1 {
+margin: 0;
+font-size: 26px;
+font-weight: 700;
+}
+
+.pageHeader p {
+margin: 8px 0 0;
+color: #921d1d;
+font-size: 20px;
+text-align: LEFT;
+}
+
+.ticketForm {
+display: flex;
+flex-direction: column;
+gap: 22px;
+padding: 30px;
+background-color: #ffffff;
+border: 1px solid #dce6ec;
+border-radius: 14px;
+box-shadow: 0 2px 8px rgba(21, 62, 87, 0.04);
+}
+
+.selectRow {
+display: grid;
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: 20px;
+}
+
+.formGroup {
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+
+.formGroup label {
+color: #153e57;
+font-size: 15px;
+font-weight: 600;
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+width: 100%;
+padding: 13px 15px;
+border: 1px solid #d7e2e9;
+border-radius: 8px;
+background-color: #f8fafc;
+color: #153e57;
+font-family: inherit;
+font-size: 14px;
+outline: none;
+transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+border-color: #168bd0;
+box-shadow: 0 0 0 3px rgba(22, 139, 208, 0.1);
+}
+
+.formGroup textarea {
+resize: vertical;
+min-height: 130px;
+}
+
+.formGroup input::placeholder,
+.formGroup textarea::placeholder {
+color: #9aabb6;
+}
+
+.uploadArea {
+min-height: 130px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 12px;
+border: 2px dashed #b8d2e1;
+border-radius: 10px;
+background-color: #f8fbfd;
+color: #6c99b2;
+cursor: pointer;
+transition: background-color 0.2s, border-color 0.2s;
+}
+
+.uploadArea:hover {
+background-color: #edf7fc;
+border-color: #168bd0;
+}
+
+.uploadArea svg {
+font-size: 32px;
+}
+
+.uploadArea input {
+display: none;
+}
+
+.fileList {
+display: flex;
+flex-direction: column;
+gap: 8px;
+margin-top: 10px;
+}
+
+.fileItem {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 12px;
+padding: 10px 14px;
+border: 1px solid #dce6ec;
+border-radius: 8px;
+background-color: #ffffff;
+font-size: 13px;
+}
+
+.fileItem span {
+overflow-wrap: anywhere;
+}
+
+.fileItem button {
+display: flex;
+align-items: center;
+justify-content: center;
+border: none;
+background: transparent;
+color: #d9534f;
+cursor: pointer;
+}
+
+.captchaContainer {
+display: flex;
+justify-content: flex-start;
+overflow-x: auto;
+}
+
+.errorMessage {
+margin: 0;
+color: #d9534f;
+font-size: 14px;
+}
+
+.formActions {
+display: flex;
+justify-content: flex-start;
+gap: 12px;
+padding-top: 10px;
+border-top: 1px solid #edf1f4;
+}
+
+.cancelButton,
+.submitButton {
+min-width: 120px;
+padding: 12px 24px;
+border-radius: 8px;
+font-family: inherit;
+font-size: 15px;
+font-weight: 600;
+cursor: pointer;
+transition: background-color 0.2s;
+}
+
+.cancelButton {
+border: 1px solid #cbd8e0;
+background-color: #ffffff;
+color: #536b79;
+}
+
+.cancelButton:hover {
+background-color: #f1f5f8;
+}
+
+.submitButton {
+border: none;
+background-color: #12618a;
+color: #ffffff;
+}
+
+.submitButton:hover {
+background-color: #0d4e70;
+}
+
+@media (max-width: 768px) {
+.ticketForm {
+padding: 20px;
+}
+
+.selectRow {
+grid-template-columns: 1fr;
+}
+
+.formActions {
+flex-direction: column;
+}
+
+.cancelButton,
+.submitButton {
+width: 100%;
+}
+}
+.successToast {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 16px 20px;
+
+  border: 1px solid #a7e5c1;
+  border-radius: 10px;
+
+  background-color: #e8f8ef;
+  color: #187a45;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  animation: slideIn 0.3s ease;
+}
+
+.successIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+
+  border-radius: 50%;
+  background-color: #2ca568;
+  color: white;
+
+  font-size: 18px;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .successToast {
+    top: 12px;
+    left: 12px;
+    right: 12px;
+  }
+}
