@@ -5,7 +5,8 @@ import Login from '../pages/Login';
 import Dashboard from '../pages/Dashboard';
 import DashboardLayout from '../layout/DashboardLayout';
 import Profile from '../pages/Profile';
-
+import PreviousTickets from '../pages/PreviousTickets';
+import TicketDetails from '../pages/TicketDetails';
 function AppRoutes() {
   return (
     <BrowserRouter>
@@ -20,12 +21,9 @@ function AppRoutes() {
 
           <Route path="/tickets/create" element={<CreateTicket />} />
 
-          <Route path="/tickets" element={<h1>التذاكر السابقة</h1>} />
+          <Route path="/tickets" element={<PreviousTickets />} />
 
-          <Route
-            path="/tickets/:id"
-            element={<h1>تفاصيل التذكرة</h1>}
-          />
+          <Route path="/tickets/:id" element={<TicketDetails />} />
 
           <Route path="/profile" element={<Profile />} />
 

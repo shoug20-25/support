@@ -1,0 +1,308 @@
+.ticketsPage {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  color: #26364a;
+}
+
+/* عنوان الصفحة */
+
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.pageHeader h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  color: #153e57;
+}
+
+.pageHeader p {
+  margin: 8px 0 0;
+  color: #8994a2;
+  font-size: 14px;
+}
+
+.createButton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px 20px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #12618a;
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.createButton:hover {
+  background: #0d4e70;
+}
+
+/* إحصائيات التذاكر */
+
+.statsCards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.statCard {
+  padding: 22px;
+
+  background: #ffffff;
+  border: 1px solid #e5eaf0;
+  border-radius: 12px;
+
+  box-shadow: 0 2px 8px rgba(30, 50, 70, 0.04);
+}
+
+.statCard span {
+  color: #7b8794;
+  font-size: 14px;
+}
+
+.statCard h2 {
+  margin: 10px 0 0;
+  color: #153e57;
+  font-size: 28px;
+}
+
+/* صندوق التذاكر */
+
+.ticketsContainer {
+  background: #ffffff;
+  border: 1px solid #e5eaf0;
+  border-radius: 12px;
+  overflow: hidden;
+
+  box-shadow: 0 2px 8px rgba(30, 50, 70, 0.04);
+}
+
+/* البحث والفلترة */
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  border-bottom: 1px solid #edf0f4;
+}
+
+.searchBox {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px 15px;
+
+  border: 1px solid #dce6ec;
+  border-radius: 8px;
+
+  background: #f8fafc;
+  color: #8994a2;
+}
+
+.searchBox input {
+  width: 100%;
+  border: none;
+  outline: none;
+
+  background: transparent;
+  color: #26364a;
+
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.searchBox input::placeholder {
+  color: #9aabb6;
+}
+
+.filters select {
+  min-width: 160px;
+  padding: 12px;
+
+  border: 1px solid #dce6ec;
+  border-radius: 8px;
+
+  background: #f8fafc;
+  color: #153e57;
+
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* الجدول */
+
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.ticketsTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ticketsTable th {
+  padding: 18px;
+
+  background: #f8fafc;
+  color: #153e57;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  border-bottom: 1px solid #e5eaf0;
+}
+
+.ticketsTable td {
+  padding: 18px;
+
+  color: #536b79;
+  font-size: 14px;
+
+  border-bottom: 1px solid #edf0f4;
+}
+
+.ticketsTable tbody tr:hover {
+  background: #f8fbfd;
+}
+
+.ticketsTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* عنوان التذكرة */
+
+.ticketTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  color: #153e57;
+  font-weight: 600;
+}
+
+.ticketTitle svg {
+  color: #6c99b2;
+  flex-shrink: 0;
+}
+
+/* حالات التذاكر */
+
+.statusBadge {
+  display: inline-block;
+
+  padding: 7px 12px;
+  border-radius: 20px;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.new {
+  background: #eaf3fc;
+  color: #2876c7;
+}
+
+.processing {
+  background: #fff4df;
+  color: #c78a22;
+}
+
+.completed {
+  background: #e5f7ed;
+  color: #26945a;
+}
+
+.rejected {
+  background: #f8e1df;
+  color: #b94e49;
+}
+
+/* زر التفاصيل */
+
+.detailsButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 8px 12px;
+
+  border: 1px solid #dce6ec;
+  border-radius: 6px;
+
+  background: #ffffff;
+  color: #12618a;
+
+  font-family: inherit;
+  font-size: 13px;
+
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.detailsButton:hover {
+  background: #edf7fc;
+}
+
+/* لا توجد نتائج */
+
+.emptyState {
+  padding: 40px 20px;
+  text-align: center;
+  color: #8994a2;
+  font-size: 15px;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  .pageHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .statsCards {
+    grid-template-columns: 1fr;
+  }
+
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filters select {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageHeader h1 {
+    font-size: 22px;
+  }
+
+  .statCard {
+    padding: 16px;
+  }
+}

@@ -1,64 +1,125 @@
-.captcha {
-display: flex;
-flex-direction: column;
-gap: 10px;
-max-width: 320px;
+.captchaContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
 }
 
 .label {
-color: #153e57;
-font-size: 15px;
-font-weight: 600;
+  color: #153e57;
+  font-size: 15px;
+  font-weight: 600;
 }
 
-.captchaRow {
-display: flex;
-align-items: center;
-gap: 10px;
+.captchaBox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.captchaImage {
-width: 180px;
-height: 60px;
-overflow: hidden;
-border: 1px solid #d7e2e9;
-border-radius: 8px;
+.captchaVisual {
+  flex: 1;
+  overflow: hidden;
+  border: 1px solid #b7d5e8;
+  border-radius: 10px;
+  background: #eaf4fc;
 }
 
-.captchaImage svg {
-width: 100%;
-height: 100%;
+.captchaSvg {
+  display: block;
+  width: 100%;
+  height: 75px;
 }
 
 .refreshButton {
-width: 40px;
-height: 40px;
-border: 2.5px solid #56a875;
-border-radius: 8px;
-background: #ffffff;
-color: #197b38;
-font-size: 25px;
-cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  border: 1px solid #b7d5e8;
+  border-radius: 8px;
+
+  background: #ffffff;
+  color: #12618a;
+
+  cursor: pointer;
+  transition: 0.2s;
 }
 
 .refreshButton:hover {
-background: #ddeae1;
+  background: #eaf4fc;
+  transform: rotate(15deg);
 }
 
-.input {
-width: 100%;
-padding: 12px;
-border: 1px solid #d7e2e9;
-border-radius: 8px;
-background: #f8fafc;
-font-family: inherit;
-font-size: 14px;
-direction: ltr;
-text-align: left;
-outline: none;
+.captchaInput {
+  width: 100%;
+  padding: 12px 14px;
+
+  border: 1px solid #dce6ec;
+  border-radius: 8px;
+
+  background: #ffffff;
+  color: #153e57;
+
+  font-family: inherit;
+  font-size: 15px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  outline: none;
+  transition: border-color 0.2s;
 }
 
-.input:focus {
-border-color: #168bd0;
-box-shadow: 0 0 0 3px rgba(22, 139, 208, 0.1);
+.captchaInput:focus {
+  border-color: #12618a;
+}
+
+.verifyButton {
+  align-self: flex-start;
+
+  padding: 9px 22px;
+
+  border: none;
+  border-radius: 7px;
+
+  background: #12618a;
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.verifyButton:hover {
+  background: #0d4e70;
+}
+
+.errorMessage,
+.successMessage {
+  margin: 0;
+  font-size: 13px;
+}
+
+.errorMessage {
+  color: #d14343;
+}
+
+.successMessage {
+  color: #26945a;
+}
+
+@media (max-width: 480px) {
+  .captchaSvg {
+    height: 65px;
+  }
+
+  .refreshButton {
+    width: 40px;
+    height: 40px;
+  }
 }

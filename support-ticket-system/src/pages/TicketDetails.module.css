@@ -1,0 +1,279 @@
+.ticketDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  color: #153e57;
+}
+
+/* العودة */
+
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+
+  padding: 0;
+  border: none;
+  background: transparent;
+
+  color: #12618a;
+  font-family: inherit;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.backButton:hover {
+  color: #0d4e70;
+}
+
+/* عنوان التذكرة */
+
+.ticketHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.titleSection {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.titleSection h1 {
+  margin: 0;
+  font-size: 25px;
+  font-weight: 700;
+  color: #153e57;
+}
+
+.ticketMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.priority {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.priorityDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #f2a900;
+}
+
+.statusBadge {
+  padding: 6px 12px;
+  border-radius: 20px;
+
+  background: #e5f7ed;
+  color: #26945a;
+
+  font-size: 13px;
+}
+
+/* معلومات النظام والقسم */
+
+.infoCards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.infoCard {
+  padding: 16px 20px;
+
+  border: 1px solid #b7d5e8;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.infoCard span {
+  color: #12618a;
+  font-size: 14px;
+}
+
+.infoCard h3 {
+  margin: 8px 0 0;
+  font-size: 20px;
+  color: #153e57;
+}
+
+/* محتوى التذكرة */
+
+.contentCard {
+  padding: 22px;
+
+  border: 1px solid #b7d5e8;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.contentCard h3 {
+  margin: 0 0 18px;
+  font-size: 16px;
+}
+
+.contentCard p {
+  margin: 0;
+  min-height: 60px;
+
+  color: #6c99b2;
+  line-height: 1.8;
+}
+
+.attachment {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  margin-top: 15px;
+  padding: 7px 12px;
+
+  border-radius: 8px;
+  background: #dceaf4;
+  color: #12618a;
+
+  font-size: 14px;
+}
+
+/* رد الدعم الفني */
+
+.responseCard {
+  padding: 22px;
+
+  border: 1px solid #b7d5e8;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.responseHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.responseHeader > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.responseHeader strong {
+  font-size: 15px;
+}
+
+.responseHeader span {
+  color: #6c99b2;
+  font-size: 12px;
+}
+
+.responseCard p {
+  margin: 20px 0 0;
+  color: #6c99b2;
+  line-height: 1.8;
+}
+
+/* التقييم */
+
+.ratingCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding: 18px;
+
+  border: 1px solid #b7d5e8;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.ratingCard h3 {
+  margin: 0;
+  color: #12618a;
+  font-size: 18px;
+}
+
+.stars {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.starButton {
+  padding: 0;
+  border: none;
+  background: transparent;
+
+  color: #12618a;
+  font-size: 27px;
+
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.starButton:hover {
+  transform: scale(1.15);
+}
+
+.starActive {
+  color: #f2a900;
+}
+
+.submitRating {
+  padding: 10px 22px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #12618a;
+  color: white;
+
+  font-family: inherit;
+  font-size: 15px;
+
+  cursor: pointer;
+}
+
+.submitRating:hover:not(:disabled) {
+  background: #0d4e70;
+}
+
+.submitRating:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  .infoCards {
+    grid-template-columns: 1fr;
+  }
+
+  .ratingCard {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .stars {
+    justify-content: center;
+  }
+
+  .submitRating {
+    width: 100%;
+  }
+
+  .titleSection h1 {
+    font-size: 21px;
+  }
+}
