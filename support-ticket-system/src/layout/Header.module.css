@@ -54,3 +54,49 @@
 .userInfo svg {
   font-size: 30px;
 }
+
+@media (max-width: 480px) {
+  .header {
+    min-height: 125px;
+    padding: 15px 15px;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .welcome {
+    width: 100%;
+    padding-top: 45px;
+  }
+
+  .welcome h2 {
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  .welcome p {
+    font-size: 12px;
+  }
+
+  .actions {
+    position: absolute;
+    top: 20px;
+    left: 15px;
+    gap: 12px;
+  }
+
+  .notificationButton {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+  }
+
+  .userInfo {
+    font-size: 12px;
+  }
+
+  .userInfo svg {
+    font-size: 25px;
+  }
+}

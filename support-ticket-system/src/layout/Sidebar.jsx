@@ -13,10 +13,11 @@ import {
   FaSignOutAlt,
 } from 'react-icons/fa';
 
+
 import styles from './Sidebar.module.css';
 import logo from '../assets/support-logo.png';
 
-function Sidebar() {
+function Sidebar({ isOpen, onClose }) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -38,7 +39,10 @@ function Sidebar() {
   };
 
   return (
-    <aside className={styles.sidebar} dir="rtl">
+    <aside
+  className={`${styles.sidebar} ${isOpen ? styles.sidebarOpen : ''}`}
+  dir="rtl"
+    >
 
       {/* الشعار */}
       <div className={styles.sidebarLogo}>
@@ -52,17 +56,22 @@ function Sidebar() {
       {/* القائمة */}
       <nav className={styles.navigation}>
 
-        <NavLink to="/dashboard" className={getNavClass}>
+        
+        <NavLink
+         to="/dashboard"
+        className={getNavClass}
+        onClick={onClose}>
+        
           <FaHome />
           <span>الرئيسية</span>
         </NavLink>
 
-        <NavLink to="/profile" className={getNavClass}>
+        <NavLink to="/profile" className={getNavClass} onClick={onClose}>
           <FaUser />
           <span>الملف الشخصي</span>
         </NavLink>
 
-        <NavLink to="/subscriptions" className={getNavClass}>
+        <NavLink to="/subscriptions" className={getNavClass} onClick={onClose}>
           <FaCreditCard />
           <span>اشتراكاتي</span>
         </NavLink>
@@ -87,7 +96,8 @@ function Sidebar() {
 
             <NavLink
               to="/tickets/create"
-              className={getSubMenuClass}
+              className={getSubMenuClass} 
+              onClick={onClose}
             >
               <span>إنشاء تذكرة</span>
               <FaPlusSquare />
@@ -96,6 +106,7 @@ function Sidebar() {
             <NavLink
               to="/tickets"
               className={getSubMenuClass}
+              onClick={onClose}
             >
               <span>التذاكر السابقة</span>
               <FaFolderOpen />
@@ -153,3 +164,5 @@ function Sidebar() {
 }
 
 export default Sidebar;
+
+

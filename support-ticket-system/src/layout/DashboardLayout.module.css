@@ -26,3 +26,66 @@ background-color: #f5f8fa;
 padding: 18px;
 }
 }
+@media (max-width: 768px) {
+  .pageContent {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageContent {
+    padding: 10px;
+  }
+
+  .layout {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .mainContent {
+    min-width: 0;
+    width: 0;
+    flex: 1;
+  }
+}
+
+/* زر القائمة - مخفي في الكمبيوتر */
+.menuButton {
+  display: none;
+}
+
+/* خلفية القائمة عند فتحها */
+.menuOverlay {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .menuButton {
+    display: block;
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 1002;
+
+    width: 45px;
+    height: 45px;
+
+    border: none;
+    border-radius: 8px;
+
+    background-color: #12618a;
+    color: white;
+
+    font-size: 25px;
+    cursor: pointer;
+  }
+
+  .menuOverlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+  }
+}
