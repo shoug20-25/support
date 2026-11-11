@@ -1,17 +1,47 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaCloudUploadAlt, FaTimes } from 'react-icons/fa';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+
 import Captcha from '../components/Captcha';
 import styles from './CreateTicket.module.css';
+
+// شروط التحقق من صحة البيانات
+const ticketSchema = z.object({
+  system: z.string().min(1, 'يرجى اختيار النظام'),
+
+  department: z.string().min(1, 'يرجى اختيار القسم المختص'),
+
+  title: z
+    .string()
+    .trim()
+    .min(3, 'عنوان المشكلة يجب أن يكون 3 أحرف على الأقل'),
+
+  content: z
+    .string()
+    .trim()
+    .min(10, 'محتوى المشكلة يجب أن يكون 10 أحرف على الأقل'),
+});
 
 function CreateTicket() {
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    system: '',
-    department: '',
-    title: '',
-    content: '',
+  // إدارة النموذج والتحقق من الحقول
+  const {
+    register,
+    handleSubmit: handleFormSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(ticketSchema),
+    defaultValues: {
+      system: '',
+      department: '',
+      title: '',
+      content: '',
+    },
   });
 
   const [attachments, setAttachments] = useState([]);
@@ -33,12 +63,7 @@ function CreateTicket() {
 
   // إعادة تعيين النموذج
   const resetForm = () => {
-    setFormData({
-      system: '',
-      department: '',
-      title: '',
-      content: '',
-    });
+    reset();
 
     setAttachments([]);
     setCaptchaVerified(false);
@@ -51,16 +76,6 @@ function CreateTicket() {
     setCaptchaVerified(isVerified);
     setError('');
   }, []);
-
-  // التعامل مع تغيّر الحقول
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    setFormData((previousData) => ({
-      ...previousData,
-      [name]: value,
-    }));
-  };
 
   // إضافة المرفقات
   const handleFileChange = (event) => {
@@ -82,9 +97,7 @@ function CreateTicket() {
   };
 
   // إرسال التذكرة
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
+  const onSubmit = (data) => {
     if (!captchaVerified) {
       setError('يرجى إدخال رمز التحقق بشكل صحيح');
       return;
@@ -92,9 +105,9 @@ function CreateTicket() {
 
     setError('');
 
-    // حاليًا الإرسال تجريبي لأن المشروع بدون Backend
+    // الإرسال تجريبي حاليًا لعدم وجود Backend
     console.log({
-      ...formData,
+      ...data,
       attachments,
     });
 
@@ -124,7 +137,11 @@ function CreateTicket() {
         <p>تُحدد أولوية التذكرة تلقائيًا من قبل النظام</p>
       </div>
 
-      <form className={styles.ticketForm} onSubmit={handleSubmit}>
+      <form
+        className={styles.ticketForm}
+        onSubmit={handleFormSubmit(onSubmit)}
+        noValidate
+      >
 
         {/* النظام والقسم */}
         <div className={styles.selectRow}>
@@ -134,16 +151,19 @@ function CreateTicket() {
 
             <select
               id="system"
-              name="system"
-              value={formData.system}
-              onChange={handleChange}
-              required
+              {...register('system')}
             >
               <option value="">اختيار النظام</option>
               <option value="matrix">نظام ماتركس</option>
               <option value="atlas">نظام أطلس</option>
               <option value="resanmah">نظام رزنامة</option>
             </select>
+
+            {errors.system && (
+              <p className={styles.errorMessage}>
+                {errors.system.message}
+              </p>
+            )}
           </div>
 
           <div className={styles.formGroup}>
@@ -151,16 +171,19 @@ function CreateTicket() {
 
             <select
               id="department"
-              name="department"
-              value={formData.department}
-              onChange={handleChange}
-              required
+              {...register('department')}
             >
               <option value="">القسم المختص</option>
               <option value="technical">الدعم الفني</option>
               <option value="accounts">الحسابات</option>
               <option value="management">الإدارة</option>
             </select>
+
+            {errors.department && (
+              <p className={styles.errorMessage}>
+                {errors.department.message}
+              </p>
+            )}
           </div>
 
         </div>
@@ -171,13 +194,16 @@ function CreateTicket() {
 
           <input
             id="title"
-            name="title"
             type="text"
             placeholder="اكتب العنوان بشكل مختصر"
-            value={formData.title}
-            onChange={handleChange}
-            required
+            {...register('title')}
           />
+
+          {errors.title && (
+            <p className={styles.errorMessage}>
+              {errors.title.message}
+            </p>
+          )}
         </div>
 
         {/* محتوى المشكلة */}
@@ -186,13 +212,16 @@ function CreateTicket() {
 
           <textarea
             id="content"
-            name="content"
             placeholder="اكتب محتوى المشكلة بشكل مختصر"
-            value={formData.content}
-            onChange={handleChange}
             rows={4}
-            required
+            {...register('content')}
           />
+
+          {errors.content && (
+            <p className={styles.errorMessage}>
+              {errors.content.message}
+            </p>
+          )}
         </div>
 
         {/* المرفقات */}
@@ -235,12 +264,9 @@ function CreateTicket() {
         </div>
 
         {/* CAPTCHA */}
-        <Captcha
-          onVerify={handleCaptchaVerify}
-          resetKey={captchaResetKey}
-        />
+        <Captcha key={captchaResetKey} onVerify={handleCaptchaVerify} />
 
-        {/* رسالة الخطأ */}
+        {/* رسالة خطأ CAPTCHA */}
         {error && (
           <p className={styles.errorMessage} role="alert">
             {error}

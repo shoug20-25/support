@@ -7,9 +7,16 @@ import DashboardLayout from '../layout/DashboardLayout';
 import Profile from '../pages/Profile';
 import PreviousTickets from '../pages/PreviousTickets';
 import TicketDetails from '../pages/TicketDetails';
+import ScrollToTop from '../components/ScrollToTop';
 function AppRoutes() {
   return (
     <BrowserRouter>
+  <ScrollToTop />
+
+  <Routes>
+    {/* باقي المسارات كما هي */}
+  </Routes>
+
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
 

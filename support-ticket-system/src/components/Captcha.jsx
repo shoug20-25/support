@@ -1,59 +1,53 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { FaSyncAlt } from 'react-icons/fa';
-
 import styles from './Captcha.module.css';
 
-// استبعاد الأحرف المتشابهة مثل O و0 وI و1
 const characters = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 
-function generateCaptcha() {
-  let code = '';
+function createCaptcha() {
+  const code = Array.from({ length: 5 }, () =>
+    characters.charAt(Math.floor(Math.random() * characters.length))
+  ).join('');
 
-  for (let i = 0; i < 5; i++) {
-    code += characters.charAt(
-      Math.floor(Math.random() * characters.length)
-    );
-  }
+  const lines = Array.from({ length: 6 }, () => ({
+    x1: Math.random() * 220,
+    y1: Math.random() * 75,
+    x2: Math.random() * 220,
+    y2: Math.random() * 75,
+  }));
 
-  return code;
+  const dots = Array.from({ length: 20 }, () => ({
+    cx: Math.random() * 220,
+    cy: Math.random() * 75,
+    r: Math.random() * 2 + 1,
+  }));
+
+  const letters = code.split('').map((char, index) => ({
+    char,
+    x: 30 + index * 40,
+    y: 48 + Math.random() * 8,
+    rotation: Math.random() * 30 - 15,
+  }));
+
+  return { code, lines, dots, letters };
 }
 
-function Captcha({ onVerify, resetKey }) {
-  const [captchaCode, setCaptchaCode] = useState(generateCaptcha());
+function Captcha({ onVerify }) {
+  const [captcha, setCaptcha] = useState(createCaptcha);
   const [userInput, setUserInput] = useState('');
-
   const [verified, setVerified] = useState(false);
   const [error, setError] = useState('');
 
-  // إعادة تعيين التحقق عند تغيير الرمز
-  useEffect(() => {
-    setVerified(false);
-    setError('');
-    onVerify(false);
-  }, [captchaCode, onVerify]);
-
-  // إعادة توليد CAPTCHA بعد إرسال النموذج
-  useEffect(() => {
-    if (resetKey > 0) {
-      setCaptchaCode(generateCaptcha());
-      setUserInput('');
-      setVerified(false);
-      setError('');
-      onVerify(false);
-    }
-  }, [resetKey, onVerify]);
-
   const refreshCaptcha = () => {
-    setCaptchaCode(generateCaptcha());
+    setCaptcha(createCaptcha());
     setUserInput('');
     setVerified(false);
     setError('');
+    onVerify(false);
   };
 
   const handleVerify = () => {
-    const normalizedInput = userInput
-      .trim()
-      .toUpperCase();
+    const normalizedInput = userInput.trim().toUpperCase();
 
     if (!normalizedInput) {
       setError('يرجى إدخال رمز التحقق');
@@ -62,7 +56,7 @@ function Captcha({ onVerify, resetKey }) {
       return;
     }
 
-    if (normalizedInput === captchaCode) {
+    if (normalizedInput === captcha.code) {
       setVerified(true);
       setError('');
       onVerify(true);
@@ -75,14 +69,9 @@ function Captcha({ onVerify, resetKey }) {
 
   return (
     <div className={styles.captchaContainer} dir="rtl">
+      <label className={styles.label}>رمز التحقق</label>
 
-      <label className={styles.label}>
-        رمز التحقق
-      </label>
-
-      {/* CAPTCHA */}
       <div className={styles.captchaBox}>
-
         <div className={styles.captchaVisual}>
           <svg
             viewBox="0 0 220 75"
@@ -110,46 +99,41 @@ function Captcha({ onVerify, resetKey }) {
               fill="url(#captchaGradient)"
             />
 
-            {/* خطوط التشويش */}
-            {Array.from({ length: 6 }).map((_, index) => (
+            {captcha.lines.map((line, index) => (
               <line
                 key={`line-${index}`}
-                x1={Math.random() * 220}
-                y1={Math.random() * 75}
-                x2={Math.random() * 220}
-                y2={Math.random() * 75}
+                x1={line.x1}
+                y1={line.y1}
+                x2={line.x2}
+                y2={line.y2}
                 stroke="#6c99b2"
                 strokeWidth="1.2"
                 opacity="0.45"
               />
             ))}
 
-            {/* نقاط التشويش */}
-            {Array.from({ length: 20 }).map((_, index) => (
+            {captcha.dots.map((dot, index) => (
               <circle
                 key={`dot-${index}`}
-                cx={Math.random() * 220}
-                cy={Math.random() * 75}
-                r={Math.random() * 2 + 1}
+                cx={dot.cx}
+                cy={dot.cy}
+                r={dot.r}
                 fill="#12618a"
                 opacity="0.25"
               />
             ))}
 
-            {/* رمز CAPTCHA */}
-            {captchaCode.split('').map((char, index) => (
+            {captcha.letters.map((letter, index) => (
               <text
-                key={`${char}-${index}`}
-                x={30 + index * 40}
-                y={48 + Math.random() * 8}
+                key={`${letter.char}-${index}`}
+                x={letter.x}
+                y={letter.y}
                 fontSize="30"
                 fontWeight="bold"
                 fill="#12618a"
-                transform={`rotate(${Math.random() * 30 - 15}, ${
-                  30 + index * 40
-                }, 40)`}
+                transform={`rotate(${letter.rotation}, ${letter.x}, 40)`}
               >
-                {char}
+                {letter.char}
               </text>
             ))}
           </svg>
@@ -164,10 +148,8 @@ function Captcha({ onVerify, resetKey }) {
         >
           <FaSyncAlt />
         </button>
-
       </div>
 
-      {/* إدخال الرمز */}
       <input
         type="text"
         className={styles.captchaInput}
@@ -192,9 +174,7 @@ function Captcha({ onVerify, resetKey }) {
       </button>
 
       {error && (
-        <p className={styles.errorMessage}>
-          {error}
-        </p>
+        <p className={styles.errorMessage}>{error}</p>
       )}
 
       {verified && (
@@ -202,7 +182,6 @@ function Captcha({ onVerify, resetKey }) {
           تم التحقق بنجاح
         </p>
       )}
-
     </div>
   );
 }

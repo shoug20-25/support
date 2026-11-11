@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   FaSearch,
   FaTicketAlt,
-  FaEye,
-} from 'react-icons/fa';
+}from 'react-icons/fa';
 
 import styles from './PreviousTickets.module.css';
 

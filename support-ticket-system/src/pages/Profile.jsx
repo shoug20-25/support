@@ -103,7 +103,7 @@ function Profile() {
     setSuccessMessage('تم حفظ البيانات بنجاح');
   };
 
-  const renderPasswordField = (name, label) => (
+  const renderPasswordField = (name) => (
     <div className={styles.passwordInputWrapper}>
       <input
         id={name}
