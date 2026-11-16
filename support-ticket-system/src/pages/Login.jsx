@@ -14,7 +14,19 @@ const loginSchema = z.object({
     .string()
     .trim()
     .min(1, 'يرجى إدخال اسم المستخدم')
-    .min(3, 'اسم المستخدم يجب أن يكون 3 أحرف على الأقل'),
+    .superRefine((value, ctx) => {
+      if (!value) return;
+
+      const letters = value.match(/\p{L}/gu) || [];
+      const numbers = value.match(/\p{N}/gu) || [];
+
+      if (letters.length < 3 || numbers.length < 2) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'اسم المستخدم يجب أن يحتوي على 3 أحرف على الأقل ورقمين على الأقل',
+        });
+      }
+    }),
 
   password: z
     .string()
@@ -41,7 +53,9 @@ function Login() {
 
   // تسجيل الدخول
   const onSubmit = (data) => {
-    localStorage.setItem('username', data.username.trim());
+    const username = data.username.trim();
+
+    localStorage.setItem('username', username);
 
     navigate('/dashboard');
   };

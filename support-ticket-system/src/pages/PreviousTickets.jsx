@@ -1,14 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
   FaSearch,
   FaTicketAlt,
-}from 'react-icons/fa';
+} from 'react-icons/fa';
 
 import styles from './PreviousTickets.module.css';
 
-const tickets = [
+// التذاكر التجريبية الموجودة مسبقًا
+const sampleTickets = [
   {
     id: 128,
     title: 'تعديل بيانات الحساب',
@@ -63,6 +64,21 @@ function Tickets() {
 
   const [search, setSearch] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('all');
+  const [tickets, setTickets] = useState(sampleTickets);
+
+  // جلب التذاكر المحفوظة
+  useEffect(() => {
+    try {
+      const savedTickets = JSON.parse(
+        localStorage.getItem('tickets') || '[]'
+      );
+
+      setTickets([...savedTickets, ...sampleTickets]);
+    } catch (error) {
+      console.error('Error loading tickets:', error);
+      setTickets(sampleTickets);
+    }
+  }, []);
 
   const filteredTickets = tickets.filter((ticket) => {
     const matchesSearch =
@@ -80,7 +96,6 @@ function Tickets() {
   return (
     <div className={styles.ticketsPage} dir="rtl">
 
-      {/* عنوان الصفحة */}
       <div className={styles.pageHeader}>
         <div>
           <h1>التذاكر السابقة</h1>
@@ -97,7 +112,6 @@ function Tickets() {
         </button>
       </div>
 
-      {/* إحصائيات التذاكر */}
       <div className={styles.statsCards}>
         <div className={styles.statCard}>
           <span>إجمالي التذاكر</span>
@@ -107,19 +121,22 @@ function Tickets() {
         <div className={styles.statCard}>
           <span>قيد المعالجة</span>
           <h2>
-            {tickets.filter((ticket) => ticket.status === 'processing').length}
+            {tickets.filter(
+              (ticket) => ticket.status === 'processing'
+            ).length}
           </h2>
         </div>
 
         <div className={styles.statCard}>
           <span>تمت المعالجة</span>
           <h2>
-            {tickets.filter((ticket) => ticket.status === 'completed').length}
+            {tickets.filter(
+              (ticket) => ticket.status === 'completed'
+            ).length}
           </h2>
         </div>
       </div>
 
-      {/* البحث والفلترة */}
       <section className={styles.ticketsContainer}>
 
         <div className={styles.filters}>
@@ -147,7 +164,6 @@ function Tickets() {
           </select>
         </div>
 
-        {/* جدول التذاكر */}
         <div className={styles.tableContainer}>
           <table className={styles.ticketsTable}>
             <thead>
@@ -189,15 +205,11 @@ function Tickets() {
 
                   <td>
                     <button
-  type="button"
-  onClick={() => {
-    if (ticket.id === 100) {
-      navigate(`/tickets/${ticket.id}`);
-    }
-  }}
->
-  معاينة
-</button>
+                      type="button"
+                      onClick={() => navigate(`/tickets/${ticket.id}`)}
+                    >
+                      معاينة
+                    </button>
                   </td>
                 </tr>
               ))}

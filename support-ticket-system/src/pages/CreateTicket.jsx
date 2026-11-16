@@ -8,27 +8,34 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Captcha from '../components/Captcha';
 import styles from './CreateTicket.module.css';
 
-// شروط التحقق من صحة البيانات
 const ticketSchema = z.object({
   system: z.string().min(1, 'يرجى اختيار النظام'),
-
   department: z.string().min(1, 'يرجى اختيار القسم المختص'),
-
   title: z
     .string()
     .trim()
     .min(3, 'عنوان المشكلة يجب أن يكون 3 أحرف على الأقل'),
-
   content: z
     .string()
     .trim()
     .min(10, 'محتوى المشكلة يجب أن يكون 10 أحرف على الأقل'),
 });
 
+const systemLabels = {
+  matrix: 'نظام ماتركس',
+  atlas: 'نظام أطلس',
+  resanmah: 'نظام رزنامة',
+};
+
+const departmentLabels = {
+  technical: 'الدعم الفني',
+  accounts: 'الحسابات',
+  management: 'الإدارة',
+};
+
 function CreateTicket() {
   const navigate = useNavigate();
 
-  // إدارة النموذج والتحقق من الحقول
   const {
     register,
     handleSubmit: handleFormSubmit,
@@ -50,7 +57,6 @@ function CreateTicket() {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-  // إخفاء إشعار النجاح بعد 4 ثوانٍ
   useEffect(() => {
     if (!successMessage) return;
 
@@ -61,23 +67,19 @@ function CreateTicket() {
     return () => clearTimeout(timer);
   }, [successMessage]);
 
-  // إعادة تعيين النموذج
   const resetForm = () => {
     reset();
-
     setAttachments([]);
     setCaptchaVerified(false);
     setCaptchaResetKey((previousKey) => previousKey + 1);
     setError('');
   };
 
-  // التحقق من CAPTCHA
   const handleCaptchaVerify = useCallback((isVerified) => {
     setCaptchaVerified(isVerified);
     setError('');
   }, []);
 
-  // إضافة المرفقات
   const handleFileChange = (event) => {
     const selectedFiles = Array.from(event.target.files || []);
 
@@ -89,42 +91,68 @@ function CreateTicket() {
     event.target.value = '';
   };
 
-  // حذف مرفق
   const handleRemoveFile = (indexToRemove) => {
     setAttachments((previousFiles) =>
       previousFiles.filter((_, index) => index !== indexToRemove)
     );
   };
 
-  // إرسال التذكرة
+  // حفظ التذكرة في المتصفح
   const onSubmit = (data) => {
     if (!captchaVerified) {
       setError('يرجى إدخال رمز التحقق بشكل صحيح');
       return;
     }
 
-    setError('');
+    try {
+      const existingTickets = JSON.parse(
+        localStorage.getItem('tickets') || '[]'
+      );
+let ticketId;
 
-    // الإرسال تجريبي حاليًا لعدم وجود Backend
-    console.log({
-      ...data,
-      attachments,
-    });
+do {
+  ticketId = Math.floor(100000 + Math.random() * 900000);
+} while (existingTickets.some((ticket) => ticket.id === ticketId));
 
-    setSuccessMessage('تم إرسال التذكرة بنجاح');
+const newTicket = {
+  id: ticketId,
+  title: data.title,
+  content: data.content,
+  system: systemLabels[data.system],
+  department: departmentLabels[data.department],
+  date: new Date().toLocaleDateString('en-CA'),
+  createdAt: new Date().toISOString(),
+  status: 'new',
 
-    resetForm();
+  attachments: attachments.map((file) => ({
+    name: file.name,
+    size: file.size,
+    type: file.type,
+  })),
+};
 
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+      const updatedTickets = [newTicket, ...existingTickets];
+
+      localStorage.setItem('tickets', JSON.stringify(updatedTickets));
+
+      setError('');
+      setSuccessMessage('تم إرسال التذكرة بنجاح');
+
+      resetForm();
+
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    } catch (storageError) {
+      console.error('Ticket storage error:', storageError);
+      setError('تعذر حفظ التذكرة، يرجى المحاولة مرة أخرى');
+    }
   };
 
   return (
     <div className={styles.createTicket} dir="rtl">
 
-      {/* إشعار نجاح الإرسال */}
       {successMessage && (
         <div className={styles.successToast} role="status">
           <span className={styles.successIcon}>✓</span>
@@ -142,17 +170,12 @@ function CreateTicket() {
         onSubmit={handleFormSubmit(onSubmit)}
         noValidate
       >
-
-        {/* النظام والقسم */}
         <div className={styles.selectRow}>
 
           <div className={styles.formGroup}>
             <label htmlFor="system">النظام</label>
 
-            <select
-              id="system"
-              {...register('system')}
-            >
+            <select id="system" {...register('system')}>
               <option value="">اختيار النظام</option>
               <option value="matrix">نظام ماتركس</option>
               <option value="atlas">نظام أطلس</option>
@@ -169,10 +192,7 @@ function CreateTicket() {
           <div className={styles.formGroup}>
             <label htmlFor="department">القسم المختص</label>
 
-            <select
-              id="department"
-              {...register('department')}
-            >
+            <select id="department" {...register('department')}>
               <option value="">القسم المختص</option>
               <option value="technical">الدعم الفني</option>
               <option value="accounts">الحسابات</option>
@@ -188,7 +208,6 @@ function CreateTicket() {
 
         </div>
 
-        {/* عنوان المشكلة */}
         <div className={styles.formGroup}>
           <label htmlFor="title">عنوان المشكلة</label>
 
@@ -206,7 +225,6 @@ function CreateTicket() {
           )}
         </div>
 
-        {/* محتوى المشكلة */}
         <div className={styles.formGroup}>
           <label htmlFor="content">محتوى المشكلة</label>
 
@@ -224,7 +242,6 @@ function CreateTicket() {
           )}
         </div>
 
-        {/* المرفقات */}
         <div className={styles.formGroup}>
           <label>المرفقات</label>
 
@@ -263,17 +280,17 @@ function CreateTicket() {
           )}
         </div>
 
-        {/* CAPTCHA */}
-        <Captcha key={captchaResetKey} onVerify={handleCaptchaVerify} />
+        <Captcha
+          key={captchaResetKey}
+          onVerify={handleCaptchaVerify}
+        />
 
-        {/* رسالة خطأ CAPTCHA */}
         {error && (
           <p className={styles.errorMessage} role="alert">
             {error}
           </p>
         )}
 
-        {/* الأزرار */}
         <div className={styles.formActions}>
           <button
             type="button"

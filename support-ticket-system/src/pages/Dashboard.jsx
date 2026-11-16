@@ -36,6 +36,7 @@ const subscriptions = [
 
 function Dashboard() {
   const navigate = useNavigate();
+const username = localStorage.getItem('username') || 'المستخدم';
 
   const [selectedSubscription, setSelectedSubscription] = useState(
     subscriptions[0]
@@ -93,7 +94,7 @@ function Dashboard() {
     <div className={styles.dashboard} dir="rtl">
       <div className={styles.welcome}>
         <FaUserCircle className={styles.welcomeIcon} />
-        <h2>مرحباً بك شوق</h2>
+        <h2>مرحباً بك {username} </h2>
       </div>
 
       {/* بطاقة الاشتراك */}
